@@ -1,38 +1,89 @@
 .App {
   text-align: center;
 }
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+*{
+  scroll-behavior: smooth;
 }
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+body{
+  font-family: 'Helvetica', sans-serif;
+  margin: 0;
+  padding: 0;
+  overflow-y: scroll; /* убрать потооооооооооооооооооооооооооооооом*/
 }
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.wrapper{
+  padding: 50px 10px 0 10px;
+  margin: 0 auto;
+  max-width: 800px;
+}
+.newsPost{
+  padding: 0 25px 15px 25px;
+  margin: 10px 0;
+  min-width: 300px;
+}
+.title{
+  width: 100%;
+}
+.content{
+  margin: 0 auto;
+}
+.newsActive{
+  display: block;
+}
+.news{
+  display: none;
+}
+.themes{
+  display: none;
+}
+.themesActive{
+  height: calc(100vh - 100px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.themesBtns{
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 25px;
+  gap: 20px;
+}
+input{
+  display: none;
+}
+input:checked + .themeItem{
+  font-weight: 700;
+  background-color: red;
+  filter: brightness(1);
+}
+.themeItem{
+  display: flex;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  width: 100%;
+  min-width: 300px;
+  border-radius: 10px;
+  height: 60px;
+  cursor: pointer;
+  box-shadow: 0 0 7px 3px rgb(0, 0, 0, 0.3);
+  transition: .3s ease;
 }
-
-.App-link {
-  color: #61dafb;
+.themeItem:hover{
+  filter: brightness(1.2);
 }
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+#darkLabel{
+  background-color:rgb(111, 103, 120);
+  color: rgb(209, 187, 46);
+  box-shadow: 0 0 3px 3px rgb(209, 187, 46);
+}
+#lightLabel{
+  background-color:rgb(206, 240, 227);
+  color: rgb(10, 10, 10);
+  box-shadow: 0 0 3px 3px rgb(10, 10, 10);
+}
+#blueLabel{
+  background-color:rgb(34, 22, 105);
+  color: rgb(201, 201, 201);
+  box-shadow: 0 0 3px 3px rgb(201, 201, 201);
 }

@@ -1,0 +1,25 @@
+.Footer{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    font-size: 25px;
+    font-weight: 700;
+    height: 50px;
+    position: fixed;
+    width: 100%;
+    z-index: 999;
+    bottom: 0;
+}
+.tabs{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 50%;
+    transition: .5s ease;
+    cursor: pointer;
+    filter: contrast(0.8);
+}
+.active{
+    filter: contrast(1.5);
+}
