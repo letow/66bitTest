@@ -10,14 +10,16 @@ function App() {
   const [currentPage, setCurrentPage] = useState(1)
   const [fetching, setFetching] = useState(true)
   const [tabName, setTabName] = useState('News')
-  const [themeName, setThemeName] = useState('dark')
-  const [theme, setTheme] = useState({
-    id: 0,
+  const [themeName, setThemeName] = useState(() => { return JSON.parse(localStorage.getItem('theme')).name || 'dark'})
+  const [theme, setTheme] = useState(() => {
+    return JSON.parse(localStorage.getItem('theme')) 
+    ||
+    {id: 0,
     name: '',
     mainColor: '',
     secondColor: '',
     title: '',
-    textColor: ''
+    textColor: ''}
   })
   const [loadingTheme, setLoadingTheme] = useState(true)
 
@@ -44,8 +46,8 @@ function App() {
       axios.get(`https://frontappapi.dock7.66bit.ru/api/theme/get?name=${themeName}`)
       .then(response => {
         setTheme(response.data)
-        console.log(theme)
         tema(response.data)
+        
       })
       .finally(() => setLoadingTheme(false))
     }
@@ -63,6 +65,9 @@ function App() {
     for (let i = 0; i < posts.length; i++){
       posts[i].style.border = `1px solid ${data.secondColor}`
     }
+    console.log('previous: '+localStorage.getItem('theme'))
+    localStorage.setItem('theme', JSON.stringify(data))
+    console.log('current: '+localStorage.getItem('theme'))
   }
 
   const scrollHandler = e => {
@@ -74,6 +79,9 @@ function App() {
     index === 1 ? setTabName('News') : setTabName('Themes')
   }
 
+  const refreshHandler = () => {
+    console.log('Hey')
+  }
   return (
     <div className="App">
       <Header
@@ -84,26 +92,28 @@ function App() {
         change={changeTabName}
         color={theme.secondColor}
       />
-      <div className="wrapper">
-        <div className={tabName === 'News' ? 'newsActive' : 'news'}>
-          {news.map(news => 
-            <div style={ {border: `1px solid ${theme.secondColor}`}} className="newsPost" key={news.id}>
-              <h2 className="title">{news.title}</h2>
-              <p className="content">{news.content}</p>
+      <PullToRefresh onRefresh={() => refreshHandler}>
+        <div className="wrapper">
+          <div className={tabName === 'News' ? 'newsActive' : 'news'}>
+            {news.map(news => 
+              <div style={ {border: `1px solid ${theme.secondColor}`}} className="newsPost" key={news.id}>
+                <h2 className="title">{news.title}</h2>
+                <p className="content">{news.content}</p>
+              </div>
+            )}
+          </div>
+          <div className={tabName === 'Themes' ? 'themesActive' : 'themes'}>
+            <div className="themesBtns">
+              <input type="radio" name='theme' id='dark' onClick={changeTheme} />
+              <label htmlFor="dark" className='themeItem' id='darkLabel'>Dark theme</label>
+              <input type="radio" name='theme' id='light' onClick={changeTheme} />
+              <label htmlFor="light" className='themeItem' id='lightLabel'>Light theme</label>
+              <input type="radio" name='theme' id='blue' onClick={changeTheme} />
+              <label htmlFor="blue" className='themeItem' id='blueLabel'>Blue theme</label>
             </div>
-          )}
-        </div>
-        <div className={tabName === 'Themes' ? 'themesActive' : 'themes'}>
-          <div className="themesBtns">
-            <input type="radio" name='theme' id='dark' onClick={changeTheme} defaultChecked />
-            <label htmlFor="dark" className='themeItem' id='darkLabel'>Dark theme</label>
-            <input type="radio" name='theme' id='light' onClick={changeTheme} />
-            <label htmlFor="light" className='themeItem' id='lightLabel'>Light theme</label>
-            <input type="radio" name='theme' id='blue' onClick={changeTheme} />
-            <label htmlFor="blue" className='themeItem' id='blueLabel'>Blue theme</label>
           </div>
         </div>
-      </div>
+      </PullToRefresh>
     </div>
   );
 }
