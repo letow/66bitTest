@@ -38,6 +38,7 @@ function App() {
     }
   }, [fetching])
 
+
   useEffect(() => {
     if(refreshing){
       axios.get('https://frontappapi.dock7.66bit.ru/api/news/get?count=10&page='+currentPage)
@@ -49,12 +50,14 @@ function App() {
     }
   })
 
+
   useEffect(() => {
     document.addEventListener('scroll', scrollHandler)
     return function (){
       document.removeEventListener('scroll', scrollHandler)
     }
   }, [])
+
 
   useEffect(() => {
     if(loadingTheme){
@@ -66,6 +69,7 @@ function App() {
       .finally(() => setLoadingTheme(false))
     }
   },[loadingTheme])
+
 
   const doRefresh = () => {
     setRefreshing(true)
@@ -102,6 +106,8 @@ function App() {
       }, 100)
     })
   }
+
+  
   return (
     <div className="App">
       <Header

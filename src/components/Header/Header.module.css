@@ -8,9 +8,8 @@
     position: fixed;
     width: 100%;
     z-index: 999;
-    opacity: 0.3;
 }
-button{
+#refreshBtn{
     padding: 0 10px;
     height: 35px;
     line-height: 1;
@@ -20,6 +19,6 @@ button{
     cursor: pointer;
     transition: .5s ease;
 }
-button:hover{
+#refreshBtn:hover{
     transform: rotate(360deg);
 }

@@ -10,10 +10,18 @@ export default function Footer({change, color}) {
 
   return (
     <div className={classes.Footer}>
-        <div style={{backgroundColor: color}} className={toggleState === 1 ? `${classes.tabs} ${classes.active}` : `${classes.tabs}`} onClick={() => toggleTab(1)}>
+        <div 
+            style={{backgroundColor: color}} 
+            className={toggleState === 1 ? `${classes.tabs} ${classes.active}` : `${classes.tabs}`} 
+            onClick={() => toggleTab(1)}
+        >
             News
         </div>
-        <div style={{backgroundColor: color}} className={toggleState === 2 ? `${classes.tabs} ${classes.active}` : `${classes.tabs}`} onClick={() => toggleTab(2)}>
+        <div 
+            style={{backgroundColor: color}} 
+            className={toggleState === 2 ? `${classes.tabs} ${classes.active}` : `${classes.tabs}`} 
+            onClick={() => toggleTab(2)}
+        >
             Themes
         </div>
     </div>
