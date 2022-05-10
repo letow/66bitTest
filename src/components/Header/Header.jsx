@@ -1,8 +1,15 @@
 import React from 'react'
 import classes from './Header.module.css'
 
-export default function Header(props) {
+export default function Header({tabName, refresh, color, textColor}) {
+  const refreshNews = () => {
+    refresh()
+  }
   return (
-    <div style={{backgroundColor: props.color}} className={classes.Header}>{props.tabName}</div>
+    <div style={{backgroundColor: color}} className={classes.Header}>
+      <div style={{width: '45px'}}></div>
+      {tabName}
+      <button style={{color: textColor}} onClick={() => refreshNews()}>&#10227;</button>
+    </div>
   )
 }

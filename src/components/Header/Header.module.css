@@ -1,11 +1,25 @@
 .Header{
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
     font-size: 25px;
     font-weight: 700;
     height: 50px;
     position: fixed;
     width: 100%;
     z-index: 999;
+    opacity: 0.3;
+}
+button{
+    padding: 0 10px;
+    height: 35px;
+    line-height: 1;
+    font-size: 35px;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    transition: .5s ease;
+}
+button:hover{
+    transform: rotate(360deg);
 }
