@@ -6,7 +6,9 @@ import Footer from './components/Footer/Footer';
 import PullToRefresh from 'react-simple-pull-to-refresh';
 
 function App() {
-  const [news, setNews] = useState([])
+  const [news, setNews] = useState(() => {
+    return JSON.parse(localStorage.getItem('news')) !== null ? JSON.parse(localStorage.getItem('news')) : []
+  })
   const [currentPage, setCurrentPage] = useState(1)
   const [fetching, setFetching] = useState(true)
   const [tabName, setTabName] = useState('News')
@@ -33,8 +35,9 @@ function App() {
         .then(response => {
           setNews([...news, ...response.data])
           setCurrentPage(prevState => prevState + 1)
+          localStorage.setItem('news', JSON.stringify([...news, ...response.data]))
         })
-        .finally(() => setFetching(false))
+        .finally(() => {setFetching(false); })
     }
   }, [fetching])
 
@@ -45,8 +48,9 @@ function App() {
         .then(response => {
           setNews([...response.data])
           setCurrentPage(prevState => prevState + 1)
+          localStorage.setItem('news', JSON.stringify([...response.data]))
         })
-        .finally(() => {setRefreshing(false)})
+        .finally(() => {setRefreshing(false); })
     }
   })
 
@@ -92,7 +96,7 @@ function App() {
 
   const scrollHandler = e => {
     if(e.target.documentElement.scrollHeight - (e.target.documentElement.scrollTop + window.innerHeight) < 100)
-    setFetching(true)
+      setFetching(true)
   }
 
   const changeTabName = (index) => {
@@ -130,7 +134,7 @@ function App() {
               <div 
                 style={ {border: `1px solid ${theme.secondColor}`}} 
                 className="newsPost" 
-                key={news.id}
+                key={Math.floor(Math.random() * Math.floor(Math.random() * Date.now()))}
               >
                 <h2 className="title">{news.title}</h2>
                 <p className="content">{news.content}</p>
@@ -139,11 +143,11 @@ function App() {
           </div>
           <div className={tabName === 'Themes' ? 'themesActive' : 'themes'}>
             <div className="themesBtns">
-              <input type="radio" name='theme' id='dark' onClick={changeTheme} />
+              <input type="radio" name='theme' id='dark' onClick={changeTheme} className='themeInput' />
               <label htmlFor="dark" className='themeItem' id='darkLabel'>Dark theme</label>
-              <input type="radio" name='theme' id='light' onClick={changeTheme} />
+              <input type="radio" name='theme' id='light' onClick={changeTheme} className='themeInput' />
               <label htmlFor="light" className='themeItem' id='lightLabel'>Light theme</label>
-              <input type="radio" name='theme' id='blue' onClick={changeTheme} />
+              <input type="radio" name='theme' id='blue' onClick={changeTheme} className='themeInput' />
               <label htmlFor="blue" className='themeItem' id='blueLabel'>Blue theme</label>
             </div>
           </div>

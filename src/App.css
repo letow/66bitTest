@@ -54,10 +54,10 @@ body{
   font-size: 25px;
   gap: 20px;
 }
-input{
+.themeInput{
   display: none;
 }
-input:checked + .themeItem{
+.themeInput:checked + .themeItem{
   font-weight: 700;
   background-color: red;
   filter: brightness(1);
